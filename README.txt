@@ -18,7 +18,8 @@ Además, se ha implementado un servicio de Publisher/Subscriber sobre un ActiveM
 
 A continuación se tiene una descripción más detallada sobre cada uno de los programas:
 
--- JMSconcurrPubSub --
+	
+	-- JMSconcurrPubSub --
         
 En esta parte de la práctica final de IST hemos implementado un servicio de JMS publisher-subscriber de forma concurrente y asíncrono.
 Para ello hemos implementado 4 clases : TestPubSubAsyncReceiver, PubSubAsyncReceiver, PubSubSender y TestPubSubSender.
