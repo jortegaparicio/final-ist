@@ -19,6 +19,7 @@ Además, se ha implementado un servicio de Publisher/Subscriber sobre un ActiveM
 A continuación se tiene una descripción más detallada sobre cada uno de los programas:
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 	-- Parte 1: JMSconcurrPtP --
 
 En esta primera parte de la práctica final de IST se ha implementado un servicio de JMS producer-consumer de forma concurrente y con recepción asíncrona.
@@ -49,7 +50,9 @@ Esta clase modela a los productores y está pensada como una tarea para poder mo
 	
 Toda la estructura del programa se ejecutará sobre Payara Server, un servidor de aplicaciones que proporciona soporte para JMS. Todo el programa se encuentra parametrizado para poder cambiar el valor del número de producers y consumers. Se asume que el usuario introducirá valores permitidos en dichos parámetros, como que el número de producers y de consumers es mayor o igual a cero.
 	
-	--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 	-- Parte 2: JMSconcurrPubSub --
         
 En esta parte de la práctica final de IST hemos implementado un servicio de JMS publisher-subscriber de forma concurrente y asíncrono. Para ello hemos implementado 4 clases : TestPubSubAsyncReceiver, PubSubAsyncReceiver, PubSubSender y TestPubSubSender.
@@ -71,6 +74,7 @@ Esta clase es la que se encarga de establecer la conexión de publicador y de la
 Esta clase implementa la interfaz Runnable, y se encargará de establecer la sesión de cada publicador de nuestro patrón de diseño publisher-subscriber. Es en esta clase donde enviamos los mensajes desde el lado del publicador (los mensajes en nuestro código son N números empezando en el 0). Finalmente nos aseguramos de que la sesión de cada publicador se cierre mediante la cláusura finally.
   
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 	-- Parte 3: ActiveMQconcurrPubSub --
 
 En esta tercera parte de la práctica final de IST hemos implementado un servicio de ActiveMQ publisher-subscriber de forma concurrente y asíncrono.
