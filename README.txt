@@ -6,7 +6,7 @@
 	Fecha: 22/05/21
 
 	
-Este es un breve resumen sobre la práctica final realizada por los alumnos César Borao Moratino y Juan Antonio Ortega Aparicio de la asignatura de ingeniería de sistemas telemáticos. Durante la realización de esta práctica se han visto diferentes tecnologías middleware aplicadas sobre un entorno concurrente. 
+Este es un breve resumen sobre la práctica final realizada por los alumnos César Borao Moratinos y Juan Antonio Ortega Aparicio de la asignatura de ingeniería de sistemas telemáticos. Durante la realización de esta práctica se han visto diferentes tecnologías middleware aplicadas sobre un entorno concurrente. 
 
 En nuestro caso particular nos ha parecido gratamente interesante dicha aplicación de la concurrencia en un sistema de telecomunicaciones, por lo que hemos decidido aplicar nuestros conocimientos al respecto incluyendo la interfaz Callable en un Producer/Consumer sobre Payara, que es un servidor de aplicaciones Jakarta EE popular.  
 
@@ -19,7 +19,7 @@ Además, se ha implementado un servicio de Publisher/Subscriber sobre un ActiveM
 A continuación se tiene una descripción más detallada sobre cada uno de los programas:
 
 
-	-- JMSconcurrPtP --
+	-- Parte 1: JMSconcurrPtP --
 
 En esta primera parte de la práctica final de IST se ha implementado un servicio de JMS producer-consumer de forma concurrente y con recepción asíncrona.
 Lanzaremos varios producers y consumers que interactuarán sobre la misma Cola (Queue) de forma concurrente.
@@ -50,7 +50,7 @@ Esta clase modela a los productores y está pensada como una tarea para poder mo
 Toda la estructura del programa se ejecutará sobre Payara Server, un servidor de aplicaciones que proporciona soporte para JMS. Todo el programa se encuentra parametrizado para poder cambiar el valor del número de producers y consumers. Se asume que el usuario introducirá valores permitidos en dichos parámetros, como que el número de producers y de consumers es mayor o igual a cero.
 	
 	
-	-- JMSconcurrPubSub --
+	-- Parte 2: JMSconcurrPubSub --
         
 En esta parte de la práctica final de IST hemos implementado un servicio de JMS publisher-subscriber de forma concurrente y asíncrono. Para ello hemos implementado 4 clases : TestPubSubAsyncReceiver, PubSubAsyncReceiver, PubSubSender y TestPubSubSender.
 
@@ -71,7 +71,7 @@ Esta clase es la que se encarga de establecer la conexión de publicador y de la
 Esta clase implementa la interfaz Runnable, y se encargará de establecer la sesión de cada publicador de nuestro patrón de diseño publisher-subscriber. Es en esta clase donde enviamos los mensajes desde el lado del publicador (los mensajes en nuestro código son N números empezando en el 0). Finalmente nos aseguramos de que la sesión de cada publicador se cierre mediante la cláusura finally.
   
 
-	-- ActiveMQconcurrPubSub --
+	-- Parte 3: ActiveMQconcurrPubSub --
 
 En esta tercera parte de la práctica final de IST hemos implementado un servicio de ActiveMQ publisher-subscriber de forma concurrente y asíncrono.
 Para ello hemos implementado 4 clases: AsyncSubscriber, Publisher, RunPublishers y RunSubscribers.
