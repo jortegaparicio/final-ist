@@ -21,7 +21,7 @@ public class RunSubscribers {
 
 	private static final int FIRST_TIMEOUT      = 60;          // first timeout for waiting the threads to close
 	private static final int SECOND_TIMEOUT     = 60;          // second timeout for waiting the threads to close
-	private static final int    NSUBS           = 300;           // Number of subscribers
+	private static final int    NSUBS           = 15;          // Number of subscribers
 	private static final String FACTORY_NAME    = "Factoria2"; // Name of our factory
 	
 	private static ExecutorService ReceiverPool = Executors.newFixedThreadPool(NSUBS); // Pool of threads
