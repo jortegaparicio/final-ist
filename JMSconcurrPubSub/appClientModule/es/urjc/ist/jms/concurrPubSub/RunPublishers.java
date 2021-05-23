@@ -21,7 +21,7 @@ public class RunPublishers {
 
 	private static final int    FIRST_TIMEOUT   = 60;          // first timeout for waiting the threads to close
 	private static final int    SECOND_TIMEOUT  = 60;          // second timeout for waiting the threads to close
-	private static final int    NPUBL           = 10;         // Number of publisher
+	private static final int    NPUBL           = 10;          // Number of publisher
 	private static final String FACTORY_NAME    = "Factoria2"; // Name of our factory
 
 	private static ExecutorService PublisherPool;              // Pool of threads
