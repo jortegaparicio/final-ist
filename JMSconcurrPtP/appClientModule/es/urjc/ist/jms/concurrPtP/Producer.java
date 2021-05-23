@@ -7,6 +7,7 @@ import javax.jms.*;
  * <p> The P2PSender class models a JMS producer in the producer-consumer scheme.
  * All the implemented methods ensure concurrent access to send messages to the queue.
  * </p>
+ * 
  * @authors Juan Antonio Ortega Aparicio & César Borao Moratinos
  * @version 1.0, 10/05/2021
  */
@@ -72,6 +73,7 @@ public class Producer implements Callable<String> {
 			sender.send(msg);
 
 			// Closes the connection, the session and the receiver and set the status message
+			System.err.println("Closing sender connection ...");
 			connection.close();  
 			statusMsg = "SUCCESS, sender in thread: ";
 
@@ -79,9 +81,10 @@ public class Producer implements Callable<String> {
 			ex.printStackTrace();
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
-		} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		System.err.println("Closing sender connection ...");
 		return statusMsg + Thread.currentThread().getId();
 	}
 }

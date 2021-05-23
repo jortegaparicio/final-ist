@@ -5,10 +5,10 @@ import java.util.Objects;
 import javax.jms.*;
 
 /**
- * 
  * <p> The P2PAsyncReceiver class models a JMS asynchronous receiver (consumer) in the producer-consumer scheme.
  * All the implemented methods ensure concurrent access to receive queue messages asynchronously.
  * </p>
+ * 
  * @authors Juan Antonio Ortega Aparicio & César Borao Moratinos
  * @version 2.0, 17/05/2021
  */
@@ -66,7 +66,7 @@ public class AsyncConsumer implements Callable<String>, MessageListener{
 			connection.start();
 			System.out.println("Thread " + Thread.currentThread().getId() + " listening!");
 
-			// While we don't receive the STOP message the thread keep listening
+			// While we don't receive the STOP message (evaluated in stopFlag) the thread keep listening
 			while (!stopFlag) {
 				Thread.sleep(MILISLEEP);
 			}
@@ -82,6 +82,8 @@ public class AsyncConsumer implements Callable<String>, MessageListener{
 			ex.printStackTrace();
 		} catch (InterruptedException ex) {
 			Thread.currentThread().interrupt();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return statusMsg + Thread.currentThread().getId();
@@ -105,7 +107,7 @@ public class AsyncConsumer implements Callable<String>, MessageListener{
 				stopFlag = true; 
 				
 				// To avoid receive other "CLOSE" messages before closing the consumer connection
-				Thread.sleep(MILISLEEP); //MILISLEEP
+				Thread.sleep(MILISLEEP); 
 
 			} else {
 				System.out.println("Listener, Thread " + 
