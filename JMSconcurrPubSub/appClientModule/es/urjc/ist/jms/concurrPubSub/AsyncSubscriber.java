@@ -15,7 +15,7 @@ import javax.naming.NamingException;
  */
 public class AsyncSubscriber implements Runnable, MessageListener{
 
-	private static final int MILISLEEP       = 1000;          // ms sleeping time
+	private static final int MILISLEEP       = 1000;        // ms sleeping time
 	private static final String STOP         = "CLOSE";     // Message received to stop Subscriber Threads
 	private static final String TOPIC_NAME   = "Topic1";    // Name of our topic
 
