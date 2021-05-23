@@ -22,12 +22,11 @@ import javax.jms.TextMessage;
  */
 public class AsyncSubscriber implements Runnable, ExceptionListener, MessageListener{
 	
-	
 	private static final String TOPIC_NAME = "Topic"; 	  // Name of our Topic
 	private static final String STOP = "CLOSE";			  // Stop message content	
 	private static final int MILISLEEP = 1000;			  // Milliseconds to sleep thread
 	
-	private ActiveMQConnectionFactory connectionFactory;  // Factory that we use in the communication
+	private ActiveMQConnectionFactory connectionFactory;  // Factory that we use in the communication ((at the broker)
 	private boolean stopFlag;							  // Flag to end the connection
 	
 	
@@ -49,10 +48,11 @@ public class AsyncSubscriber implements Runnable, ExceptionListener, MessageList
     	
         try {
         	
-            // Create a Connection
+            // Create a Connection and start it
             Connection connection = connectionFactory.createConnection();
             connection.start();
             
+            // link it to an ExceptionListener to handle JMS exceptions
             connection.setExceptionListener(this);
 
             // Create a Session
@@ -78,7 +78,9 @@ public class AsyncSubscriber implements Runnable, ExceptionListener, MessageList
             consumer.close();
             session.close();
             connection.close();
-            
+           
+        } catch (InterruptedException ex) {
+        	Thread.currentThread().interrupt();
         } catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
@@ -93,14 +95,18 @@ public class AsyncSubscriber implements Runnable, ExceptionListener, MessageList
 	 */
     @Override
     public void onMessage(Message msg) {
+    	
     	try {
-    		
     		TextMessage textMessage = (TextMessage) msg;
     		String text = textMessage.getText();
+    		
     		if (Objects.equals(text, STOP)) {
+    			
     			System.err.println("No more messages. Closing now listener running in thread: " + Thread.currentThread().getId());
     			stopFlag = true;
+    			
     		} else {
+    			
     			System.out.println("Listener, Thread " + Thread.currentThread().getId() + " message received: " + textMessage.getText());
     		}
     	} catch (JMSException ex){
@@ -108,6 +114,9 @@ public class AsyncSubscriber implements Runnable, ExceptionListener, MessageList
     	}
     }
     
+    /**
+     * Method to print if a JMS Exception ocurred
+     */
     public synchronized void onException(JMSException ex) {
         System.err.println("JMS Exception occured.  Shutting down client.");
     }

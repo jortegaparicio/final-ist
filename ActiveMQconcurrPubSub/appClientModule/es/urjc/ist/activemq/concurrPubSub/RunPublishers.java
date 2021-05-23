@@ -6,9 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
-//  * <h1>RunPublishers class</h1>
+
 /**
- * 
  * <p> The RunPublishers class launches N concurrent publishers for 
  * the publisher/subscriber pattern. </p>
  *
@@ -18,7 +17,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 public class RunPublishers {
   
 	// Parameter to select the number of publishers running concurrently in the thread pool
-	private static final int NPUBLISHERS = 15;	
+	private static final int NPUBLISHERS = 10;	
 	
 	// Run ActiveMQ service as independent process. The URL of the JMS server is on "tcp://localhost:8161"
     private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;  
@@ -39,14 +38,19 @@ public class RunPublishers {
 	 * @param secondTimeout Timeout to the second waiting stage.
 	 */
 	private static void shutdownAndAwaitTermination(int firstTimeout, int secondTimeout) {
-		PubPool.shutdown(); 
+		
 		try {
-
+			PubPool.shutdown(); 
 			if (!PubPool.awaitTermination(firstTimeout, TimeUnit.SECONDS)) {
 				System.err.println("Uncompleted tasks. forcing closure...");
 				PubPool.shutdownNow(); 
-				if (!PubPool.awaitTermination(secondTimeout, TimeUnit.SECONDS))
+				if (!PubPool.awaitTermination(secondTimeout, TimeUnit.SECONDS)) {
 					System.err.println("Unended thread pool");
+				} else {
+					System.err.println("All threads closed");
+				}	
+			} else {
+				System.err.println("All threads closed");
 			}
 		} catch (InterruptedException ie) {
 			PubPool.shutdownNow();
@@ -75,14 +79,12 @@ public class RunPublishers {
 				// Run publisher
 				PubPool.submit(publisher); 
 			}
-
-			// Closing thread pool
-			shutdownAndAwaitTermination(FIRST_TIMEOUT, SECOND_TIMEOUT);
-	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+		} finally {
+			// Closing thread pool
+			shutdownAndAwaitTermination(FIRST_TIMEOUT, SECOND_TIMEOUT);
 		}
 		
 		System.err.println("\nEND");

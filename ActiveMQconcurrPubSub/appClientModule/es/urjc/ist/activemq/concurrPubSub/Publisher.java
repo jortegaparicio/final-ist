@@ -9,8 +9,8 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 /**
- * 
  * <p> The Publisher class models a publisher in the Publisher/Subscriber pattern.</p>
+ * 
  * @authors César Borao Moratinos & Juan Antonio Ortega Aparicio
  * @version 1.0, 16/05/2021
  */
@@ -18,7 +18,7 @@ public class Publisher implements Runnable {
 	
 	private static final String TOPIC_NAME = "Topic"; 	 // Name of our Topic
 	private static final int NMESSAGES = 3; 			 // Number of messages to send to the topic
-	private static final String STOP = "CLOSE";			 // Stop message content
+	private static final String STOP = "CLOSE";			 // "Stop message" content
 	
 	private ActiveMQConnectionFactory connectionFactory; // Factory that we use in the communication 
 	
@@ -43,7 +43,7 @@ public class Publisher implements Runnable {
             // Create a new connection
             Connection connection = connectionFactory.createConnection();
             
-            // Starting new connection
+            // Starting the new connection
             connection.start();
 
             // Create a Session
@@ -75,8 +75,8 @@ public class Publisher implements Runnable {
             producer.close();
             session.close();
             connection.close();
-        }
-        catch (Exception e) {
+        
+        } catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
         }

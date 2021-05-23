@@ -40,14 +40,19 @@ public class RunSubscribers {
 	 * @param secondTimeout Timeout to the second waiting stage.
 	 */
 	private static void shutdownAndAwaitTermination(int firstTimeout, int secondTimeout) {
-		SubPool.shutdown(); 
+		
 		try {
-
+			SubPool.shutdown(); 
 			if (!SubPool.awaitTermination(firstTimeout, TimeUnit.SECONDS)) {
 				System.err.println("Uncompleted tasks. forcing closure...");
 				SubPool.shutdownNow(); 
-				if (!SubPool.awaitTermination(secondTimeout, TimeUnit.SECONDS))
+				if (!SubPool.awaitTermination(secondTimeout, TimeUnit.SECONDS)) {
 					System.err.println("Unended thread pool");
+				} else {
+					System.err.println("All threads closed");
+				}	
+			} else {
+				System.err.println("All threads closed");
 			}
 		} catch (InterruptedException ie) {
 			SubPool.shutdownNow();
@@ -57,6 +62,7 @@ public class RunSubscribers {
 	
 	/**
 	 * Main method to run the RunSubscribers program
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -79,7 +85,6 @@ public class RunSubscribers {
 			e.printStackTrace();
 			
 		} finally {
-			
 			// Closing thread pool
 			shutdownAndAwaitTermination(FIRST_TIMEOUT, SECOND_TIMEOUT);
 		}
