@@ -115,7 +115,7 @@ public class AsyncSubscriber implements Runnable, ExceptionListener, MessageList
     }
     
     /**
-     * Method to print if a JMS Exception ocurred
+     * Method to print if a JMS Exception occurred
      */
     public synchronized void onException(JMSException ex) {
         System.err.println("JMS Exception occured.  Shutting down client.");
