@@ -133,7 +133,6 @@ public class RunConsumers {
 			// Recovering results
 			recoverResults();
 		}
-		
 		System.err.println("\nEND");
 	}
 }
